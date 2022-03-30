@@ -22,5 +22,15 @@ TestStatus TestNumberToSequence::Run() {
 }
 
 TestStatus TestSequenceToNumber::Run() {
-  return TestStatus::Failed;
+  int i = 0;
+  for (auto &seq : gl_sequences) {
+    auto answer = Convert(seq, Option::Reflect);
+    auto number = answer.first;
+    auto status = answer.second;
+    if ((number != gl_numbers[i]) || (status != ConversionStatus::Done)) {
+      return TestStatus::Failed;
+    }
+    i++;
+  }
+  return TestStatus::Passed;
 }
